@@ -147,12 +147,16 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 .ap-backdrop.open{opacity:1;pointer-events:all}
 .ap-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#141414;border-left:1px solid #222;z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .ap-panel.open{transform:translateX(0)}
+/* Content body — contains both welcome and chat, hosts the Figma orange glow */
+.ap-body{flex:1;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0;background:#1f1f1f}
+.ap-body::after{content:'';position:absolute;width:236px;height:236px;background:#FF8000;border-radius:50%;filter:blur(150px);bottom:-210px;left:50%;transform:translateX(-50%);pointer-events:none}
 
 /* Header — Figma: left-group(brand+switch) | X */
 .ap-header{height:60px;background:#141414;border-bottom:1px solid #1e1e1e;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0}
 .ap-header-left{display:flex;align-items:center;gap:8px}
 .ap-header-brand{display:flex;align-items:center;gap:6px}
-.ap-brand-text{font-size:10px;font-weight:600;color:#fff;letter-spacing:.04em;text-transform:uppercase}
+/* Figma: IBM Plex Sans 14px weight 400 */
+.ap-brand-text{font-family:var(--font-brand);font-size:14px;font-weight:400;color:#fff;letter-spacing:0}
 /* Tab switcher — Figma: bg=#272727 r=14 pad=2 */
 .ap-switch{display:flex;align-items:center;background:#272727;border-radius:14px;padding:2px;height:32px}
 .ap-switch-tab{display:flex;align-items:center;gap:4px;padding:6px;height:28px;border-radius:12px;cursor:pointer;font-size:10px;font-weight:500;color:#5b5b5b;border:none;background:transparent;font-family:var(--font);white-space:nowrap;transition:background .15s,color .15s}
@@ -176,27 +180,29 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 .ap-key-link a{color:var(--orange);text-decoration:none}
 .ap-key-link a:hover{text-decoration:underline}
 
-/* Welcome / empty state */
-.ap-welcome-wrap{flex:1;display:flex;flex-direction:column;overflow-y:auto;padding:44px 20px 20px;min-height:0}
+/* Welcome — Figma: inner frame VERTICAL main=CENTER cross=CENTER gap=16 */
+.ap-welcome-wrap{flex:1;display:flex;flex-direction:column;overflow-y:auto;padding:24px 16px;min-height:0}
 .ap-welcome-wrap::-webkit-scrollbar{width:4px}
 .ap-welcome-wrap::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
-.ap-welcome-icon-row{display:flex;justify-content:center;margin-bottom:22px}
-.ap-welcome-title{font-size:22px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:8px}
-.ap-welcome-sub{font-size:13px;color:var(--orange);cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:28px;text-decoration:none}
+.ap-welcome-inner{display:flex;flex-direction:column;align-items:center;gap:16px;flex:1;justify-content:center;min-height:0}
+.ap-welcome-icon-row{display:flex;justify-content:center}
+/* title: IBM Plex Sans 22px/700 #dcdcdc center */
+.ap-welcome-title{font-family:var(--font-brand);font-size:22px;font-weight:700;color:#dcdcdc;line-height:1.2;text-align:center}
+/* subtitle: IBM Plex Sans 12px/500 #e8b339 */
+.ap-welcome-sub{font-family:var(--font-brand);font-size:12px;font-weight:500;color:#e8b339;display:inline-flex;align-items:center;gap:4px;text-decoration:none}
 .ap-welcome-sub:hover{opacity:.8}
-.ap-suggestions{display:flex;flex-direction:column;gap:8px}
-.ap-suggestion{padding:14px 16px;background:#1b1b1b;border:1px solid #252525;border-radius:8px;cursor:pointer;text-align:left;width:100%;transition:border-color .15s,background .15s;font-family:var(--font)}
-.ap-suggestion:hover{background:#1e1e1e;border-color:rgba(255,128,0,.22)}
-.ap-suggestion-q{display:block;font-size:20px;color:#383838;font-family:Georgia,serif;line-height:1;margin-bottom:5px}
-.ap-suggestion-txt{display:block;font-size:13px;color:#bbb;line-height:1.45}
+.ap-suggestions{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:4px}
+.ap-suggestion{padding:12px 16px;background:#272727;border:none;border-radius:6px;cursor:pointer;text-align:left;width:100%;transition:background .15s;font-family:var(--font)}
+.ap-suggestion:hover{background:#2f2f2f}
+.ap-suggestion-q{display:block;font-size:18px;color:#454545;font-family:Georgia,serif;line-height:1;margin-bottom:4px}
+.ap-suggestion-txt{display:block;font-size:13px;color:#dcdcdc;line-height:1.45}
 
 /* Chat area — Figma: bg=#1f1f1f, pad=L16R16T24B24, gap=10, orange glow */
-.ap-chat{flex:1;overflow-y:auto;padding:24px 16px;display:flex;flex-direction:column;gap:24px;min-height:0;background:#1f1f1f;position:relative}
+.ap-chat{flex:1;overflow-y:auto;padding:24px 16px;display:flex;flex-direction:column;gap:0;min-height:0;position:relative}
+.msg-user-wrap,.msg-ai-wrap{margin-top:16px}
+.msg-user-wrap:first-child,.msg-ai-wrap:first-child{margin-top:0}
 .ap-chat::-webkit-scrollbar{width:4px}
 .ap-chat::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
-/* orange glow ellipse */
-.ap-chat-glow{position:sticky;top:0;left:50%;transform:translateX(-50%);width:236px;height:0;pointer-events:none;flex-shrink:0}
-.ap-chat-glow::before{content:'';position:absolute;width:236px;height:236px;border-radius:50%;background:radial-gradient(circle,rgba(255,127,0,.12) 0%,transparent 70%);top:-80px;left:0;pointer-events:none}
 /* AI message — Figma: full-width card bg=#272727, pad=16, r=6, text #dcdcdc */
 .msg-ai-card{background:#272727;border-radius:6px;padding:16px;font-size:13px;line-height:1.6;color:#dcdcdc;width:100%}
 .msg-ai-card strong{color:#fff;font-weight:600}
@@ -213,7 +219,7 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 @keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
 
 /* Input — sempre duas linhas, r=12, borda laranja no foco */
-.ap-input-area{padding:16px;flex-shrink:0;background:#141414}
+.ap-input-area{padding:16px;flex-shrink:0;position:relative;z-index:1}
 .ap-input-box{background:#212121;border-radius:12px;border:1px solid transparent;padding:10px 14px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s}
 .ap-input-box:focus-within{border-color:rgba(255,127,0,.6)}
 .ap-input-top{display:flex;align-items:center;gap:8px}
@@ -435,9 +441,8 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
   <div class="ap-header">
     <div class="ap-header-left">
       <div class="ap-header-brand">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" fill="#ff8000"/>
-          <path d="M19 3L19.9 6.6L23.5 7.5L19.9 8.4L19 12L18.1 8.4L14.5 7.5L18.1 6.6L19 3Z" fill="#ff8000" opacity=".55"/>
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.60156 2.56421C6.79393 2.56429 6.98168 2.62338 7.13965 2.73315C7.29768 2.84306 7.4183 2.99901 7.48535 3.17944L8.84668 6.92065L12.5869 8.28101C12.7693 8.34583 12.9271 8.46622 13.0381 8.62476C13.1489 8.78324 13.2076 8.97236 13.2061 9.16577C13.2075 9.35921 13.149 9.5483 13.0381 9.70679C12.9271 9.86533 12.7693 9.98571 12.5869 10.0505L8.8457 11.4109L7.48535 15.1511C7.41832 15.3317 7.29778 15.4874 7.13965 15.5974C6.98162 15.7073 6.79405 15.7663 6.60156 15.7664C6.40894 15.7664 6.22064 15.7074 6.0625 15.5974C5.90444 15.4874 5.7838 15.3316 5.7168 15.1511L4.35645 11.4099L0.615234 10.0505C0.434767 9.98355 0.278915 9.86282 0.168945 9.70483C0.0589913 9.54674 2.9182e-05 9.35834 0 9.16577C0 8.97315 0.058964 8.78485 0.168945 8.62671C0.278921 8.46863 0.434695 8.34802 0.615234 8.28101L4.35645 6.92065L5.7168 3.17944C5.78385 2.99898 5.90445 2.84308 6.0625 2.73315C6.2206 2.62324 6.40901 2.56421 6.60156 2.56421ZM12.9707 0.233154C13.073 0.23319 13.1729 0.264604 13.2568 0.322998C13.3408 0.381421 13.4048 0.464409 13.4404 0.560303L14.1631 2.54761L16.1504 3.27026C16.2473 3.3047 16.3307 3.36866 16.3896 3.45288C16.4486 3.53709 16.4803 3.63721 16.4795 3.73999C16.4803 3.84276 16.4486 3.94289 16.3896 4.0271C16.3307 4.11132 16.2473 4.17528 16.1504 4.20972L14.1631 4.93237L13.4404 6.91968C13.4048 7.01556 13.3408 7.09856 13.2568 7.15698C13.1729 7.21538 13.073 7.24679 12.9707 7.24683C12.8684 7.24683 12.7686 7.21537 12.6846 7.15698C12.6006 7.09856 12.5366 7.01561 12.501 6.91968L11.7783 4.93237L9.79004 4.20972C9.69433 4.17408 9.61204 4.10996 9.55371 4.02612C9.49528 3.94211 9.46387 3.84232 9.46387 3.73999C9.46388 3.63768 9.49529 3.53786 9.55371 3.45386C9.61204 3.37004 9.69435 3.30589 9.79004 3.27026L11.7783 2.54761L12.501 0.560303C12.5366 0.464368 12.6006 0.381426 12.6846 0.322998C12.7686 0.264629 12.8684 0.233154 12.9707 0.233154Z" fill="#FF8000"/>
         </svg>
         <span class="ap-brand-text">Analyst</span>
       </div>
@@ -477,42 +482,49 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
     <div class="ap-key-link">Obtenha sua chave em <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
   </div>
 
+  <!-- Body — bg:#1f1f1f + Figma orange glow (::after) -->
+  <div class="ap-body">
+
   <!-- Welcome / Empty State -->
   <div class="ap-welcome-wrap" id="apWelcomeWrap" style="display:none">
-    <div class="ap-welcome-icon-row">
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" fill="#ff8000"/>
-        <path d="M19 3L19.9 6.6L23.5 7.5L19.9 8.4L19 12L18.1 8.4L14.5 7.5L18.1 6.6L19 3Z" fill="#ff8000" opacity=".6"/>
-      </svg>
-    </div>
-    <div class="ap-welcome-title">O que vamos explorar hoje, João?</div>
-    <a class="ap-welcome-sub" href="#">
-      Conheça o Chat Analyst
-      <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </a>
-    <div class="ap-suggestions">
-      <button class="ap-suggestion" onclick="sendSuggestion(this)">
-        <span class="ap-suggestion-q">"</span>
-        <span class="ap-suggestion-txt">Quais ativos estão com variações fora do comum?</span>
-      </button>
-      <button class="ap-suggestion" onclick="sendSuggestion(this)">
-        <span class="ap-suggestion-q">"</span>
-        <span class="ap-suggestion-txt">Qual a saúde financeira de BBAS3?</span>
-      </button>
-      <button class="ap-suggestion" onclick="sendSuggestion(this)">
-        <span class="ap-suggestion-q">"</span>
-        <span class="ap-suggestion-txt">Crie um novo workspace para mim acompanhar ativos do setor de petróleo</span>
-      </button>
-      <button class="ap-suggestion" onclick="sendSuggestion(this)">
-        <span class="ap-suggestion-q">"</span>
-        <span class="ap-suggestion-txt">Com o recuo do dólar, qual seu sentimento para ativos de empresas americanas no curto prazo?</span>
-      </button>
+    <div class="ap-welcome-inner">
+      <div class="ap-welcome-icon-row">
+        <!-- Figma sparkle exact path, 40x40 -->
+        <svg width="43" height="40" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.60156 2.56421C6.79393 2.56429 6.98168 2.62338 7.13965 2.73315C7.29768 2.84306 7.4183 2.99901 7.48535 3.17944L8.84668 6.92065L12.5869 8.28101C12.7693 8.34583 12.9271 8.46622 13.0381 8.62476C13.1489 8.78324 13.2076 8.97236 13.2061 9.16577C13.2075 9.35921 13.149 9.5483 13.0381 9.70679C12.9271 9.86533 12.7693 9.98571 12.5869 10.0505L8.8457 11.4109L7.48535 15.1511C7.41832 15.3317 7.29778 15.4874 7.13965 15.5974C6.98162 15.7073 6.79405 15.7663 6.60156 15.7664C6.40894 15.7664 6.22064 15.7074 6.0625 15.5974C5.90444 15.4874 5.7838 15.3316 5.7168 15.1511L4.35645 11.4099L0.615234 10.0505C0.434767 9.98355 0.278915 9.86282 0.168945 9.70483C0.0589913 9.54674 2.9182e-05 9.35834 0 9.16577C0 8.97315 0.058964 8.78485 0.168945 8.62671C0.278921 8.46863 0.434695 8.34802 0.615234 8.28101L4.35645 6.92065L5.7168 3.17944C5.78385 2.99898 5.90445 2.84308 6.0625 2.73315C6.2206 2.62324 6.40901 2.56421 6.60156 2.56421ZM12.9707 0.233154C13.073 0.23319 13.1729 0.264604 13.2568 0.322998C13.3408 0.381421 13.4048 0.464409 13.4404 0.560303L14.1631 2.54761L16.1504 3.27026C16.2473 3.3047 16.3307 3.36866 16.3896 3.45288C16.4486 3.53709 16.4803 3.63721 16.4795 3.73999C16.4803 3.84276 16.4486 3.94289 16.3896 4.0271C16.3307 4.11132 16.2473 4.17528 16.1504 4.20972L14.1631 4.93237L13.4404 6.91968C13.4048 7.01556 13.3408 7.09856 13.2568 7.15698C13.1729 7.21538 13.073 7.24679 12.9707 7.24683C12.8684 7.24683 12.7686 7.21537 12.6846 7.15698C12.6006 7.09856 12.5366 7.01561 12.501 6.91968L11.7783 4.93237L9.79004 4.20972C9.69433 4.17408 9.61204 4.10996 9.55371 4.02612C9.49528 3.94211 9.46387 3.84232 9.46387 3.73999C9.46388 3.63768 9.49529 3.53786 9.55371 3.45386C9.61204 3.37004 9.69435 3.30589 9.79004 3.27026L11.7783 2.54761L12.501 0.560303C12.5366 0.464368 12.6006 0.381426 12.6846 0.322998C12.7686 0.264629 12.8684 0.233154 12.9707 0.233154Z" fill="#FF8000"/>
+        </svg>
+      </div>
+      <!-- title: IBM Plex Sans 22/700 #dcdcdc center -->
+      <div class="ap-welcome-title">O que vamos explorar hoje, João?</div>
+      <!-- subtitle: IBM Plex Sans 12/500 #e8b339 with arrows -->
+      <a class="ap-welcome-sub" href="#">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 2L2 10M2 2h8v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Conheça o Chat Analyst
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H2M10 2v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="ap-suggestions">
+        <button class="ap-suggestion" onclick="sendSuggestion(this)">
+          <span class="ap-suggestion-q">"</span>
+          <span class="ap-suggestion-txt">Quais ativos estão com variações fora do comum?</span>
+        </button>
+        <button class="ap-suggestion" onclick="sendSuggestion(this)">
+          <span class="ap-suggestion-q">"</span>
+          <span class="ap-suggestion-txt">Qual a saúde financeira de BBAS3?</span>
+        </button>
+        <button class="ap-suggestion" onclick="sendSuggestion(this)">
+          <span class="ap-suggestion-q">"</span>
+          <span class="ap-suggestion-txt">Crie um novo workspace para mim acompanhar ativos do setor de petróleo</span>
+        </button>
+        <button class="ap-suggestion" onclick="sendSuggestion(this)">
+          <span class="ap-suggestion-q">"</span>
+          <span class="ap-suggestion-txt">Com o recuo do dólar, qual seu sentimento para ativos de empresas americanas no curto prazo?</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Chat Messages -->
   <div class="ap-chat" id="apChat" style="display:none">
-    <div class="ap-chat-glow"></div>
     <div id="apMessages"></div>
   </div>
 
@@ -544,6 +556,7 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
       </div>
     </div>
   </div>
+  </div><!-- end ap-body -->
 </div>
 
 <!-- ═════════════ SYMBOL SEARCH ═════════════ -->
