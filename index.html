@@ -143,10 +143,9 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 /* ══════════════════════════════════════════
    AI ANALYST PANEL — Figma v0.1
 ══════════════════════════════════════════ */
-.ap-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
-.ap-backdrop.open{opacity:1;pointer-events:all}
-.ap-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#141414;border-left:1px solid #222;z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
-.ap-panel.open{transform:translateX(0)}
+.workspace{flex:1;display:flex;overflow:hidden;min-height:0}
+.ap-panel{flex-shrink:0;width:420px;max-width:0;overflow:hidden;background:#141414;border-left:1px solid #222;display:flex;flex-direction:column;transition:max-width .35s cubic-bezier(.4,0,.2,1)}
+.ap-panel.open{max-width:420px}
 /* Content body — contains both welcome and chat, hosts the Figma orange glow */
 .ap-body{flex:1;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:0;background:#1f1f1f}
 .ap-body::after{content:'';position:absolute;width:236px;height:236px;background:#FF8000;border-radius:50%;filter:blur(150px);bottom:-210px;left:50%;transform:translateX(-50%);pointer-events:none}
@@ -314,7 +313,8 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
   </div>
 </header>
 
-<!-- ═════════════ BODY ═════════════ -->
+<!-- ═════════════ WORKSPACE (body + analyst panel side-by-side) ═════════════ -->
+<div class="workspace">
 <div class="body">
   <!-- LEFT COL -->
   <div class="col">
@@ -431,10 +431,8 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
     </div>
   </div>
 </div><!-- /body -->
-</div><!-- /terminal -->
 
 <!-- ═════════════ AI ANALYST PANEL ═════════════ -->
-<div class="ap-backdrop" id="apBackdrop" onclick="closeAnalystPanel()"></div>
 <div class="ap-panel" id="apPanel">
 
   <!-- Header — Figma: [brand + switch] … [×] -->
@@ -557,7 +555,9 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
     </div>
   </div>
   </div><!-- end ap-body -->
-</div>
+</div><!-- /ap-panel -->
+</div><!-- /workspace -->
+</div><!-- /terminal -->
 
 <!-- ═════════════ SYMBOL SEARCH ═════════════ -->
 <div class="sym-overlay" id="symOverlay" onclick="if(event.target===this)closeSymSearch()">
@@ -916,7 +916,6 @@ function updateSentiment(neg,neu,pos) {
 // AI ANALYST PANEL
 // ══════════════════════════════════════════════════════
 function openAnalystPanel() {
-  document.getElementById('apBackdrop').classList.add('open');
   document.getElementById('apPanel').classList.add('open');
   if (conversationHistory.length === 0) {
     showWelcome();
@@ -927,7 +926,6 @@ function openAnalystPanel() {
 }
 
 function closeAnalystPanel() {
-  document.getElementById('apBackdrop').classList.remove('open');
   document.getElementById('apPanel').classList.remove('open');
 }
 
