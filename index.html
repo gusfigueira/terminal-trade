@@ -24,28 +24,28 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 .panel{background:var(--bg-1000);border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;overflow:hidden;min-height:0;flex:1}
 
 /* HEADER */
-.header{height:72px;background:var(--bg-975);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;flex-shrink:0;z-index:100}
-.h-left{display:flex;align-items:center;gap:16px;flex-shrink:0}
-.logo{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
-.logo-word{font-weight:500;font-size:13px;letter-spacing:2px}
-.h-tabs{display:flex;align-items:center}
-.h-tab{display:flex;align-items:center;gap:4px;padding:8px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--gold);white-space:nowrap;transition:background .15s}
+.header{height:72px;background:var(--bg-975);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;flex-shrink:0;z-index:100}
+.h-left{display:flex;align-items:center;flex-shrink:0}
+.logo{display:flex;align-items:center;cursor:pointer;flex-shrink:0}
+/* Tabs — Figma: Roboto 14/400, active=#EFC75F, inactive=#B8B8B8, 78×32 each */
+.h-tabs{flex:1;display:flex;align-items:center;gap:0}
+.h-tab{height:32px;display:flex;align-items:center;padding:0 12px;border-radius:6px;cursor:pointer;font-family:var(--font);font-size:14px;font-weight:400;color:#b8b8b8;white-space:nowrap;transition:background .15s,color .15s;user-select:none}
+.h-tab.active{color:#efc75f}
 .h-tab:hover{background:rgba(255,255,255,.06)}
-.h-tab-add{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;color:var(--text-m);font-size:18px;transition:background .15s}
+.h-tab-add{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;color:#888;transition:background .15s}
 .h-tab-add:hover{background:rgba(255,255,255,.06)}
-.h-center{flex:1;display:flex;justify-content:center}
-.analyst-bar{width:355px;height:44px;background:#212121;border:.5px solid var(--orange);border-radius:100px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;cursor:text;box-shadow:0 21.8px 43px rgba(0,0,0,.08),0 9.4px 24px rgba(0,0,0,.09),0 2.7px 9px rgba(0,0,0,.13);transition:border-color .2s}
-.analyst-bar:hover{border-color:#ffa040}
-.analyst-bar-l{display:flex;align-items:center;gap:6px;flex:1}
-.analyst-input{background:transparent;border:none;outline:none;font-family:var(--font-brand);font-size:14px;color:var(--text-m);flex:1}
-.analyst-input:focus{color:var(--text)}
-.analyst-input::placeholder{color:var(--text-m)}
-.h-right{display:flex;align-items:center;flex-shrink:0}
+/* Right — search + action btns + analyst button */
+.h-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
+/* Search field — Figma: 202×40, bg=#2A2A2A, r=6 */
+.h-search{width:202px;height:40px;background:#2a2a2a;border-radius:6px;display:flex;align-items:center;gap:8px;padding:0 12px;cursor:text}
+.h-search-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--font);font-size:14px;font-weight:500;color:var(--text)}
+.h-search-input::placeholder{color:#888}
 .act-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:8px;cursor:pointer;color:var(--text-m);transition:background .15s,color .15s}
 .act-btn:hover{background:rgba(255,255,255,.06);color:var(--text-2)}
-.analyst-hbtn{display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--orange-bg);border:.5px solid var(--orange);border-radius:100px;cursor:pointer;margin-left:4px;white-space:nowrap;transition:background .2s}
-.analyst-hbtn:hover{background:#3a2c14}
-.analyst-hbtn-text{font-family:var(--font-brand);font-size:14px;background:linear-gradient(58deg,#ff8000 30%,#ffca95 65%,#ff8000 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* Analyst button — Figma: 97×36, bg=#2B2111, gradient border, inner orange glow */
+.analyst-hbtn{display:flex;align-items:center;gap:6px;padding:0 14px;height:36px;border-radius:100px;cursor:pointer;white-space:nowrap;border:.5px solid transparent;background:linear-gradient(#2b2111,#2b2111) padding-box,linear-gradient(58deg,#ff8000 0%,#fff 33%,#ff8000 54%) border-box;box-shadow:inset 0 0 8px rgba(255,128,0,.3);transition:box-shadow .2s}
+.analyst-hbtn:hover{box-shadow:inset 0 0 14px rgba(255,128,0,.45)}
+.analyst-hbtn-text{font-family:var(--font-brand);font-size:14px;font-weight:400;background:linear-gradient(58deg,#ff8000 0%,#ffca95 54%,#ff8000 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* PANEL HEADER */
 .ph{height:48px;background:var(--bg-900);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0}
@@ -257,45 +257,51 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
 
 <!-- ═════════════ HEADER ═════════════ -->
 <header class="header">
+  <!-- Logo -->
   <div class="h-left">
     <div class="logo">
-      <svg width="31" height="31" viewBox="0 0 31 31" fill="none">
-        <rect width="31" height="31" rx="5" fill="#ff8000" fill-opacity=".12"/>
-        <path d="M5 23L10 13L14 19L18 11L22 16L26 8" stroke="#ff8000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="26" cy="8" r="2.5" fill="#efc75f"/>
-      </svg>
-      <span class="logo-word">TERMINAL</span>
-    </div>
-    <div class="h-tabs">
-      <div class="h-tab">Layout 1 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style="opacity:.5"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-      <div class="h-tab-add">+</div>
-    </div>
-  </div>
-
-  <div class="h-center">
-    <div class="analyst-bar" onclick="document.getElementById('analystInput').focus()">
-      <div class="analyst-bar-l">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-          <path d="M8 1.5s2.5 3.5 1.5 6.5c2.5-2 3-4.5 1.5-6.5C13 4 14 8 12 11c-1.5 2-3.5 3-5 3-2.5 0-4.5-2-5-4-.5-2 .5-4 2-5 0 2 1 3.5 2 3.5C5 7 6 4 8 1.5z" fill="url(#fg1)"/>
-          <defs><linearGradient id="fg1" x1="8" y1="1.5" x2="8" y2="14"><stop stop-color="#ffca95"/><stop offset="1" stop-color="#ff8000"/></linearGradient></defs>
-        </svg>
-        <input id="analystInput" class="analyst-input" placeholder="Pergunte ao Analyst..." onkeydown="handleHeaderKey(event)"/>
-      </div>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="opacity:.4;flex-shrink:0;cursor:pointer" onclick="openAnalystPanel()">
-        <path d="M14 8L2 2l3 6-3 6 12-6z" stroke="#7d7d7d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="152" height="32" viewBox="0 0 152 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_logo)">
+          <path d="M11.9808 20.9928H19.1535V19.0364H14.1818V16.5741H19.0007V14.6344H14.1818V12.1721H19.1535V10.2156H11.9808V20.9928ZM12.1698 23.9581L15.6019 30.7362L19.034 23.9609C18.003 24.4861 16.8386 24.7835 15.6019 24.7835C14.3652 24.7835 13.2008 24.4861 12.1698 23.9581ZM15.6019 6.49171C16.8553 6.49171 18.0391 6.7974 19.0813 7.33932L15.6019 0.469482L12.1225 7.33932C13.1647 6.7974 14.3458 6.49171 15.5991 6.49171M7.1202 19.0586C6.58662 18.022 6.28648 16.8465 6.28648 15.6042C6.28648 14.362 6.58662 13.1865 7.1202 12.1499L0.297607 15.6042L7.1202 19.0586ZM26.0539 16.941C26.1206 16.5047 26.1568 16.0572 26.1568 15.6015C26.1568 15.1457 26.1206 14.6983 26.0539 14.262L28.7024 15.6015L26.0539 16.9438V16.941ZM24.078 12.1443C24.6116 13.1809 24.9145 14.3564 24.9145 15.6015C24.9145 16.8465 24.6116 18.022 24.078 19.0558L30.9034 15.6015L24.078 12.1443Z" fill="#CECA38"/>
+        </g>
+        <path d="M144.779 9.96021H146.568V19.6475H152V21.2433H144.779V9.96021Z" fill="#E5EBEC"/>
+        <path d="M131.827 9.96021H133.793L138.516 21.2433H136.614L131.988 10.0247H133.551L128.925 21.2433H127.104L131.827 9.96021ZM129.57 16.9235H136.066V18.5192H129.57V16.9235Z" fill="#E5EBEC"/>
+        <path d="M111.041 9.96021H112.782L120.68 20.4373L119.068 20.937V9.96021H120.841V21.2433H119.1L111.218 10.7661L112.83 10.2665V21.2433H111.041V9.96021Z" fill="#E5EBEC"/>
+        <path d="M102.2 9.96021H103.989V21.2433H102.2V9.96021Z" fill="#E5EBEC"/>
+        <path d="M83.2051 9.96021H84.8975V21.2433H83.2051V9.96021ZM83.7853 9.96021H85.5423L89.991 20.6307H88.4436L92.8924 9.96021H94.5687L89.8943 21.2433H88.4598L83.7853 9.96021ZM93.4565 9.96021H95.149V21.2433H93.4565V9.96021Z" fill="#E5EBEC"/>
+        <path d="M67.9258 9.96021H72.6002C73.3309 9.96021 73.981 10.1106 74.5505 10.4115C75.1201 10.7017 75.5606 11.11 75.8723 11.6365C76.1839 12.1631 76.3397 12.7487 76.3397 13.3935C76.3397 14.0382 76.1839 14.6239 75.8723 15.1504C75.5606 15.6662 75.1201 16.0745 74.5505 16.3754C73.981 16.6763 73.3309 16.8267 72.6002 16.8267H69.715V21.2433H67.9258V9.96021ZM72.6002 15.231C72.9763 15.231 73.304 15.1504 73.5834 14.9892C73.8736 14.828 74.0992 14.6077 74.2604 14.3284C74.4216 14.049 74.5022 13.7373 74.5022 13.3935C74.5022 13.0496 74.4216 12.738 74.2604 12.4586C74.0992 12.1685 73.8736 11.9482 73.5834 11.7977C73.304 11.6365 72.9763 11.556 72.6002 11.556H69.715V15.231H72.6002ZM70.9238 15.9563H73.0515L76.6298 21.2433H74.4861L70.9238 15.9563Z" fill="#E5EBEC"/>
+        <path d="M53.8744 9.96021H61.0955V11.556H55.6636V14.8119H60.9344V16.3915H55.6636V19.6475H61.0955V21.2433H53.8744V9.96021Z" fill="#E5EBEC"/>
+        <path d="M42.1876 11.5557H38.5448V9.95996H47.6035V11.5557H43.9607V21.243H42.1876V11.5557Z" fill="#E5EBEC"/>
+        <defs><clipPath id="clip0_logo"><rect width="31.203" height="31.203" fill="white"/></clipPath></defs>
       </svg>
     </div>
   </div>
 
+  <!-- Tabs — Figma: 5 layouts, active=#EFC75F, inactive=#B8B8B8 -->
+  <div class="h-tabs">
+    <div class="h-tab active">Layout 1</div>
+    <div class="h-tab">Layout 2</div>
+    <div class="h-tab">Layout 3</div>
+    <div class="h-tab">Layout 4</div>
+    <div class="h-tab">Layout 5</div>
+    <div class="h-tab-add">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Right: search + actions + analyst button -->
   <div class="h-right">
-    <button class="act-btn" title="Buscar (Ctrl+K)" onclick="openSymSearch()">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 12l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </button>
+    <!-- Search — Figma: 202×40, bg=#2A2A2A, icon amber -->
+    <div class="h-search" onclick="openSymSearch()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+        <circle cx="7" cy="7" r="4.5" stroke="#efc75f" stroke-width="1.5"/>
+        <path d="M10.5 10.5l3 3" stroke="#efc75f" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input class="h-search-input" placeholder="Buscar" onkeydown="if(event.key==='Enter'||event.key==='k'&&event.metaKey)openSymSearch()" readonly onclick="openSymSearch()"/>
+    </div>
+    <!-- Action buttons -->
     <button class="act-btn" title="Alertas">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 3c-2.2 0-4 1.8-4 4v4L3 13h12l-2-2V7c0-2.2-1.8-4-4-4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7.5 13v1c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5v-1" stroke="currentColor" stroke-width="1.5"/></svg>
-    </button>
-    <button class="act-btn" title="Portfólio">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M6 7V5c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v2" stroke="currentColor" stroke-width="1.5"/></svg>
     </button>
     <button class="act-btn" title="Grade">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="3" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="10" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="10" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -303,12 +309,15 @@ html,body{width:100%;height:100vh;overflow:hidden;background:var(--bg-1000);colo
     <button class="act-btn" title="Configurações">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M9 2v2M9 14v2M2 9h2M14 9h2M4.2 4.2l1.4 1.4M12.4 12.4l1.4 1.4M4.2 13.8l1.4-1.4M12.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
     </button>
+    <button class="act-btn" title="Perfil">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 15c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <!-- Analyst button — Figma: bg=#2B2111, gradient border, inner glow -->
     <div class="analyst-hbtn" onclick="openAnalystPanel()">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5s2.5 3.5 1.5 6.5c2.5-2 3-4.5 1.5-6.5C13 4 14 8 12 11c-1.5 2-3.5 3-5 3-2.5 0-4.5-2-5-4-.5-2 .5-4 2-5 0 2 1 3.5 2 3.5C5 7 6 4 8 1.5z" fill="url(#fg2)"/>
-        <defs><linearGradient id="fg2" x1="8" y1="1.5" x2="8" y2="14"><stop stop-color="#ffca95"/><stop offset="1" stop-color="#ff8000"/></linearGradient></defs>
+      <svg width="16" height="16" viewBox="0 0 17 16" fill="none">
+        <path d="M6.60156 2.56421C6.79393 2.56429 6.98168 2.62338 7.13965 2.73315C7.29768 2.84306 7.4183 2.99901 7.48535 3.17944L8.84668 6.92065L12.5869 8.28101C12.7693 8.34583 12.9271 8.46622 13.0381 8.62476C13.1489 8.78324 13.2076 8.97236 13.2061 9.16577C13.2075 9.35921 13.149 9.5483 13.0381 9.70679C12.9271 9.86533 12.7693 9.98571 12.5869 10.0505L8.8457 11.4109L7.48535 15.1511C7.41832 15.3317 7.29778 15.4874 7.13965 15.5974C6.98162 15.7073 6.79405 15.7663 6.60156 15.7664C6.40894 15.7664 6.22064 15.7074 6.0625 15.5974C5.90444 15.4874 5.7838 15.3316 5.7168 15.1511L4.35645 11.4099L0.615234 10.0505C0.434767 9.98355 0.278915 9.86282 0.168945 9.70483C0.0589913 9.54674 2.9182e-05 9.35834 0 9.16577C0 8.97315 0.058964 8.78485 0.168945 8.62671C0.278921 8.46863 0.434695 8.34802 0.615234 8.28101L4.35645 6.92065L5.7168 3.17944C5.78385 2.99898 5.90445 2.84308 6.0625 2.73315C6.2206 2.62324 6.40901 2.56421 6.60156 2.56421ZM12.9707 0.233154C13.073 0.23319 13.1729 0.264604 13.2568 0.322998C13.3408 0.381421 13.4048 0.464409 13.4404 0.560303L14.1631 2.54761L16.1504 3.27026C16.2473 3.3047 16.3307 3.36866 16.3896 3.45288C16.4486 3.53709 16.4803 3.63721 16.4795 3.73999C16.4803 3.84276 16.4486 3.94289 16.3896 4.0271C16.3307 4.11132 16.2473 4.17528 16.1504 4.20972L14.1631 4.93237L13.4404 6.91968C13.4048 7.01556 13.3408 7.09856 13.2568 7.15698C13.1729 7.21538 13.073 7.24679 12.9707 7.24683C12.8684 7.24683 12.7686 7.21537 12.6846 7.15698C12.6006 7.09856 12.5366 7.01561 12.501 6.91968L11.7783 4.93237L9.79004 4.20972C9.69433 4.17408 9.61204 4.10996 9.55371 4.02612C9.49528 3.94211 9.46387 3.84232 9.46387 3.73999C9.46388 3.63768 9.49529 3.53786 9.55371 3.45386C9.61204 3.37004 9.69435 3.30589 9.79004 3.27026L11.7783 2.54761L12.501 0.560303C12.5366 0.464368 12.6006 0.381426 12.6846 0.322998C12.7686 0.264629 12.8684 0.233154 12.9707 0.233154Z" fill="#FF8000"/>
       </svg>
-      <span class="analyst-hbtn-text">The Analyst</span>
+      <span class="analyst-hbtn-text">Analyst</span>
     </div>
   </div>
 </header>
